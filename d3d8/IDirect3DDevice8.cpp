@@ -379,8 +379,11 @@ HRESULT m_IDirect3DDevice8::SetLight(DWORD Index, CONST D3DLIGHT8 *pLight)
 
 	if (pLightEdit->Type == D3DLIGHTTYPE::D3DLIGHT_SPOT)
 	{
-		pLightEdit->Falloff /= (float) 2;
-		pLightEdit->Theta /= (float) 2;
+		pLightEdit->Falloff *= 0.5f;
+		pLightEdit->Theta *= 0.5f;
+
+		if (pLightEdit->Falloff < 0.4f)
+			pLightEdit->Falloff = 0.4f;
 	}
 
 	return ProxyInterface->SetLight(Index, pLightEdit);
