@@ -375,8 +375,15 @@ HRESULT m_IDirect3DDevice8::LightEnable(DWORD LightIndex, BOOL bEnable)
 
 HRESULT m_IDirect3DDevice8::SetLight(DWORD Index, CONST D3DLIGHT8 *pLight)
 {
+	D3DLIGHT8* pLightEdit = const_cast<D3DLIGHT8*>(pLight);
 
-	return ProxyInterface->SetLight(Index, pLight);
+	if (pLightEdit->Type == D3DLIGHTTYPE::D3DLIGHT_SPOT)
+	{
+		pLightEdit->Falloff /= (float) 2;
+		pLightEdit->Theta /= (float) 2;
+	}
+
+	return ProxyInterface->SetLight(Index, pLightEdit);
 }
 
 HRESULT m_IDirect3DDevice8::SetMaterial(CONST D3DMATERIAL8 *pMaterial)
