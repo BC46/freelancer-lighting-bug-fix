@@ -4,6 +4,5 @@ Open source DirectX 8 wrapper that fixes a major lighting bug often seen when pl
 ## Credits
 - [BC46](https://github.com/BC46)
   - Lighting Bug Fix implementation
-
 - [Elisha Riedlinger](https://github.com/elishacloud)
   - [DirectX-Wrappers](https://github.com/elishacloud/DirectX-Wrappers)
