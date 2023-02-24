@@ -16,8 +16,6 @@
 
 #include "d3d8.h"
 
-std::ofstream Log::LOG("d3d8.log");
-
 Direct3D8EnableMaximizedWindowedModeShimProc m_pDirect3D8EnableMaximizedWindowedModeShim;
 ValidatePixelShaderProc m_pValidatePixelShader;
 ValidateVertexShaderProc m_pValidateVertexShader;
@@ -35,7 +33,6 @@ bool WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 		char path[MAX_PATH];
 		GetSystemDirectoryA(path, MAX_PATH);
 		strcat_s(path, "\\d3d8.dll");
-		Log() << "Loading " << path;
 		d3d8dll = LoadLibraryA(path);
 
 		// Get function addresses
