@@ -6,6 +6,13 @@ private:
 	LPDIRECT3DDEVICE8 ProxyInterface;
 	m_IDirect3D8* m_pD3D;
 
+	float falloffMultiplier = 0.5f;
+	float thetaMultiplier = 0.5f;
+
+	// This value is pretty arbitrary but it works great in nearly all scenes.
+	// Increase it if you want smoother but different looking lighting, decrease it if you want the lighting to look more like in vanilla but with rougher shadows.
+	float minimumFalloff = 0.4f;
+
 public:
 	m_IDirect3DDevice8(LPDIRECT3DDEVICE8 pDevice, m_IDirect3D8* pD3D) : ProxyInterface(pDevice), m_pD3D(pD3D)
 	{

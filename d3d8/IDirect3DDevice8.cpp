@@ -375,15 +375,19 @@ HRESULT m_IDirect3DDevice8::LightEnable(DWORD LightIndex, BOOL bEnable)
 
 HRESULT m_IDirect3DDevice8::SetLight(DWORD Index, CONST D3DLIGHT8 *pLight)
 {
+	// Remove const so we can modify the given light
 	D3DLIGHT8* pLightEdit = const_cast<D3DLIGHT8*>(pLight);
 
+	// Only the light type D3DLIGHT_SPOT suffers from the lighting bug
 	if (pLightEdit->Type == D3DLIGHTTYPE::D3DLIGHT_SPOT)
 	{
-		pLightEdit->Falloff *= 0.5f;
-		pLightEdit->Theta *= 0.5f;
+		// Fix lighting bug
+		pLightEdit->Falloff *= falloffMultiplier;
+		pLightEdit->Theta *= thetaMultiplier;
 
-		if (pLightEdit->Falloff < 0.4f)
-			pLightEdit->Falloff = 0.4f;
+		// Impose minimum Falloff to ensure shadows won't look too sharp
+		if (pLightEdit->Falloff < minimumFalloff)
+			pLightEdit->Falloff = minimumFalloff;
 	}
 
 	return ProxyInterface->SetLight(Index, pLightEdit);
