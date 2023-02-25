@@ -15,6 +15,7 @@
 */
 
 #include "d3d8.h"
+#include "../Common/helpers.h"
 
 HRESULT m_IDirect3D8::QueryInterface(REFIID riid, LPVOID *ppvObj)
 {
@@ -113,7 +114,8 @@ HRESULT m_IDirect3D8::CreateDevice(UINT Adapter, D3DDEVTYPE DeviceType, HWND hFo
 
 	if (SUCCEEDED(hr) && ppReturnedDeviceInterface)
 	{
-		*ppReturnedDeviceInterface = new m_IDirect3DDevice8(*ppReturnedDeviceInterface, this);
+		bool hasLightingBug = OperatingSystemChecker::HasLightingBug();
+		*ppReturnedDeviceInterface = new m_IDirect3DDevice8(*ppReturnedDeviceInterface, this, hasLightingBug);
 	}
 	return hr;
 }

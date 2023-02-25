@@ -375,6 +375,10 @@ HRESULT m_IDirect3DDevice8::LightEnable(DWORD LightIndex, BOOL bEnable)
 
 HRESULT m_IDirect3DDevice8::SetLight(DWORD Index, CONST D3DLIGHT8 *pLight)
 {
+	// No need to edit anything if there's no lighting bug
+	if (!hasLightingBug)
+		return ProxyInterface->SetLight(Index, pLight);
+
 	// Remove const so we can modify the given light
 	D3DLIGHT8* pLightEdit = const_cast<D3DLIGHT8*>(pLight);
 
