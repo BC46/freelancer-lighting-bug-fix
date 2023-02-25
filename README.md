@@ -1,4 +1,6 @@
 # Freelancer Lighting Bug Fix
+![Freelancer Lighting Bug Fix](https://i.imgur.com/rKmHhuc.png)
+
 Open source DirectX 8 wrapper that fixes a major lighting bug often seen when playing Freelancer (2003) on modern systems.
 
 ## Credits
